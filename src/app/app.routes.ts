@@ -3,12 +3,13 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/inbox',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
-    path: 'folder/:id',
+    path: 'login',
     loadComponent: () =>
-      import('./folder/folder.page').then((m) => m.FolderPage),
+      import('./pages/login/login.page').then((m) => m.LoginPage),
   },
+  // (remove or comment out the folder/:id route for now)
 ];

@@ -1,0 +1,33 @@
+<ion-content class="ion-padding" fullscreen>
+  <div class="login-background">
+    <div class="login-container">
+      <img src="assets/logo.png" alt="App Logo" class="login-logo" />
+      <h2 class="login-title">Iniciar sesión</h2>
+      <form (ngSubmit)="onLogin()">
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label position="floating">Usuario</ion-label>
+            <ion-input
+              type="text"
+              required
+              [(ngModel)]="usuario"
+              name="usuario"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input
+              type="password"
+              required
+              [(ngModel)]="contrasena"
+              name="contrasena"
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="block" type="submit" class="login-button"
+          >Entrar</ion-button
+        >
+      </form>
+    </div>
+  </div>
+</ion-content>

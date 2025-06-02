@@ -1,0 +1,41 @@
+.login-container {
+  background: rgba(255, 255, 255, 0.85); // semi-transparent white
+  backdrop-filter: blur(2px);            // optional, adds subtle blur
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.85);
+  padding: 2rem 1.5rem;
+  max-width: 350px;
+  margin: 60px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.login-logo {
+  width: 90px;
+  margin-bottom: 20px;
+}
+
+.login-title {
+  margin-bottom: 28px;
+  color: #2946a5;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.login-button {
+  margin-top: 18px;
+}
+
+// :host {
+//   // The :host selector targets the page itself
+//   background: url("/assets/background.jpg") no-repeat center center fixed;
+//   background-size: cover;
+//   min-height: 100vh;
+//   width: 100vw;
+//   display: block;
+  
+// }
+
+
