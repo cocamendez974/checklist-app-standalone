@@ -11,5 +11,12 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/login/login.page').then((m) => m.LoginPage),
   },
-  // (remove or comment out the folder/:id route for now)
+  {
+    path: 'listas',
+    loadComponent: () => import('./pages/listas/listas.page').then( m => m.ListasPage)
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
+  },
 ];

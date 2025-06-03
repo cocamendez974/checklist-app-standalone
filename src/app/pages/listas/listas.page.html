@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-title>Listas</ion-title>
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <!-- Botones de ordenamiento -->
+    <ion-buttons slot="end">
+      <ion-button
+        fill="clear"
+        color="primary"
+        (click)="sortBy('numero')"
+        aria-label="Ordenar por Número"
+      >
+        <ion-icon
+          slot="icon-only"
+          [name]="sortOrders['numero'] ? 'caret-up-outline' : 'caret-down-outline'"
+        ></ion-icon>
+        <!-- <ion-icon slot="icon-only" name="chevron-up-outline"></ion-icon> -->
+
+      </ion-button>
+      <ion-button
+        fill="clear"
+        color="secondary"
+        (click)="sortBy('nombre')"
+        aria-label="Ordenar por Nombre"
+      >
+        <ion-icon
+          slot="icon-only"
+          [name]="sortOrders['nombre'] ? 'caret-up-outline' : 'caret-down-outline'"
+        ></ion-icon>
+      </ion-button>
+      <ion-button
+        fill="clear"
+        color="dark"
+        (click)="sortBy('categoria')"
+        aria-label="Ordenar por Categoría"
+      >
+        <ion-icon
+          slot="icon-only"
+          [name]="sortOrders['categoria'] ? 'caret-up-outline' : 'caret-down-outline'"
+        ></ion-icon>
+      </ion-button>
+      <ion-button
+        fill="clear"
+        color="medium"
+        (click)="sortBy('situacion')"
+        aria-label="Ordenar por Estado"
+      >
+        <ion-icon
+          slot="icon-only"
+          [name]="sortOrders['situacion'] ? 'caret-up-outline' : 'caret-down-outline'"
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title class="titulo-corto">Checklists para el día de hoy</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-searchbar
+    placeholder="Buscar por Nombre o Categoría"
+    [(ngModel)]="searchText"
+    (ionInput)="filterListas()"
+    (ionClear)="filterListas()"
+    (ionCancel)="filterListas()"
+    showCancelButton="focus"
+  >
+  </ion-searchbar>
+
+  <ion-list>
+    @for (lista of filteredListas; track lista.codigo_programacion; ){
+    <ion-item>
+      <ion-label>
+        <h2>
+          <ion-text color="secondary">
+            <b>
+              <ion-badge color="primary">{{lista.numero}}</ion-badge> Nombre:</b
+            >
+          </ion-text>
+          {{ lista.nombre_lista}}
+        </h2>
+        <p>
+          <ion-text color="dark">
+            <b>Categoría:</b>
+          </ion-text>
+          {{ lista.categoria }}
+        </p>
+        <p>
+          <ion-text color="medium">
+            <b>Estado:</b>
+          </ion-text>
+          {{lista.situacion || 'No se ha iniciado'}}
+        </p>
+      </ion-label>
+      <ion-button
+        slot="end"
+        fill="outline"
+        (click)="enterList(lista.codigo_lista)"
+      >
+        Entrar
+      </ion-button>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>

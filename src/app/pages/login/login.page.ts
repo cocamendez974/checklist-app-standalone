@@ -3,17 +3,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/angular/standalone';
-import {
   IonList,
   IonItem,
   IonLabel,
   IonInput,
   IonButton,
 } from '@ionic/angular/standalone';
+import { LoginService } from '../../services/login.service';
+import { SessionService } from 'src/app/services/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -32,14 +30,48 @@ import {
   ],
 })
 export class LoginPage implements OnInit {
-  constructor() {}
+  constructor(
+    private loginService: LoginService,
+    private sessionService: SessionService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
-  usuario = '';
-  contrasena = '';
+  email = 'manuelsa@farasi.com.gt';
+  user = '';
+  password = '';
+  token = 'D3$@rr0ll0';
+  hashkey = '';
+  // const hashkey = 'vqKRpeDWlebbnQ==';
 
-  onLogin() {
-    alert(`Usuario: ${this.usuario}\nContraseña: ${this.contrasena}`);
+login() {
+  const user = this.user;
+  const password = this.password;
+  const token = this.token; // Use actual token logic if needed
+  const hashkey = this.hashkey; // Use actual hashkey logic if needed
+
+  if (!user || !password) {
+    alert('Por favor ingrese usuario y contraseña.');
+    return;
   }
+
+  this.loginService.login(user, password, token, hashkey).subscribe({
+    next: (response) => {
+      if (response.status) {
+        this.sessionService.setUserData(response.data);
+        // console.log('User session set:', this.sessionService.getUserData());
+        console.log('Sesión abierta con éxito');
+        this.router.navigate(['/listas']);
+      } else {
+        alert('Usuario o contraseña incorrectos.');
+      }
+    },
+    error: (err) => {
+      alert('No se pudo iniciar sesión.');
+      console.error('Login error:', err);
+    }
+  });
+}
+
 }

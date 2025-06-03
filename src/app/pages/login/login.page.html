@@ -2,32 +2,67 @@
   <div class="login-background">
     <div class="login-container">
       <img src="assets/logo.png" alt="App Logo" class="login-logo" />
-      <h2 class="login-title">Iniciar sesión</h2>
-      <form (ngSubmit)="onLogin()">
+      <h2 class="login-title">Start Session</h2>
+      <div style="text-align: center; margin-bottom: 18px; font-size: 1.1em">
+        To register, mail to:
+        <a href="mailto:manuelsa@farasi.com.gt">{{email}}</a>
+      </div>
+      <form (ngSubmit)="login()">
         <ion-list lines="none">
           <ion-item>
             <ion-label position="floating">Usuario</ion-label>
             <ion-input
               type="text"
               required
-              [(ngModel)]="usuario"
+              [(ngModel)]="user"
               name="usuario"
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
+            <ion-label position="floating">Contraseña:</ion-label>
             <ion-input
               type="password"
               required
-              [(ngModel)]="contrasena"
+              [(ngModel)]="password"
               name="contrasena"
             ></ion-input>
           </ion-item>
         </ion-list>
         <ion-button expand="block" type="submit" class="login-button"
-          >Entrar</ion-button
+          >Login</ion-button
         >
       </form>
+
+      <!-- <ion-button expand="block" color="light" class="google-login-button">
+        <img
+          src="assets/google-logo.svg"
+          alt="Google"
+          style="width: 20px; height: 20px; margin-right: 12px"
+        />
+        <span>Sign in with Google</span>
+      </ion-button> -->
+      <!-- 
+      <ion-button expand="block" color="secondary" class="phone-login-button">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <span style="display: flex; align-items: center">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            style="margin-right: 8px"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M22 16.92V21a2 2 0 0 1-2.18 2A19.72 19.72 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72 13 13 0 0 0 .57 2.62 2 2 0 0 1-.45 2.11l-1.27 1.27a16 16 0 0 0 6.28 6.28l1.27-1.27a2 2 0 0 1 2.11-.45 13 13 0 0 0 2.62.57A2 2 0 0 1 21 14.91z"
+            />
+          </svg>
+          <span>Register</span>
+        </span>
+      </ion-button> -->
     </div>
   </div>
 </ion-content>
