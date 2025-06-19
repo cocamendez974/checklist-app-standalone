@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { getCurrentDate, getCurrentTime, getToken } from '../../utils';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-listas',
@@ -26,7 +29,8 @@ export class ListasPage {
   constructor(
     private listasService: ListasService,
     private sessionService: SessionService,
-    private router: Router
+    private router: Router,
+    private httpClient: HttpClient
   ) {}
 
   ionViewWillEnter() {
@@ -39,9 +43,11 @@ export class ListasPage {
       const userData = this.sessionService.getUserData();
       const usuario = userData.codigo;
 
+      console.log(JSON.stringify(userData, null, 2));
+
       this.listasService.getListas(usuario).subscribe({
         next: (response) => {
-          console.dir(response.data);
+          // console.dir(response.data);
           this.listas = response.data.map((item: any, index: number) => ({
             numero: index + 1,
             nombre: item.nombre_lista,
@@ -72,12 +78,12 @@ export class ListasPage {
   sortBy(field: 'numero' | 'nombre' | 'categoria' | 'situacion') {
     this.sortOrders[field] = !this.sortOrders[field];
     const order = this.sortOrders[field] ? 1 : -1;
-    var valA: number | string ; 
-    var valB: number | string ; 
+    var valA: number | string;
+    var valB: number | string;
     this.filteredListas.sort((a, b) => {
       if (field == 'numero') {
-        valA = (a[field] || '')
-        valB = (b[field] || '')
+        valA = a[field] || '';
+        valB = b[field] || '';
       } else {
         valA = (a[field] || '').toString().toLowerCase();
         valB = (b[field] || '').toString().toLowerCase();
@@ -89,8 +95,47 @@ export class ListasPage {
     });
   }
 
-  enterList(lista: any) {
-    alert('Entrando a la lista: ' + lista.nombre);
-    // You can add navigation or further logic here!
+  entrarLista(item: any) {
+    const lista = item.codigo_lista;
+    const programacion = item.codigo_programacion;
+    const userData = this.sessionService.getUserData();
+    const usuario = userData.codigo;
+    const fecha = getCurrentDate();
+    const hora = getCurrentTime();
+    const categoria = item.categoria;
+
+    this.router.navigate(['/lista'], {
+      state: {
+        lista,
+        programacion,
+        categoria,
+        usuario,
+      },
+    });
   }
-}
+    // const params = new HttpParams()
+    //   .set('request', 'new_revision')
+    //   .set('lista', lista)
+    //   .set('programacion', programacion)
+    //   .set('usuario', usuario)
+    //   .set('fecha', fecha)
+    //   .set('hora', hora)
+    //   .set('domain', getToken());
+
+    // const url = `${environment.baseUrl}ROOT/API/API_checklist.php`;
+
+    // this.httpClient.get(url, { params }).subscribe({
+    //   next: (response) => {
+    //     // Handle response here
+    //     console.log('Checklist opened:', response);
+    //     // Example: Navigate to the checklist detail page
+    //     // this.router.navigate(['/detalle-checklist', response.data.codigo_revision]);
+    //   },
+    //   error: (error) => {
+    //     alert('No se pudo abrir la lista de chequeo.');
+    //   },
+    // });
+
+    // You’ll build and call the API in the next steps
+  }
+

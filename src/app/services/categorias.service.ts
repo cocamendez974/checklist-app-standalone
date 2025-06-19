@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiResponse } from '../models/api-response';
+import { environment } from 'src/environments/environment';
+import { getToken } from '../utils';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,7 @@ export class CategoriasService {
     const params = {
       request: 'categorias',
       usuario: usuario.toString(),
-      domain: 'D3$@rr0ll0',
+      token: getToken(),
     };
     this.httpClient
       .get<ApiResponse<Array<{ codigo: string; nombre: string }>>>(url, {

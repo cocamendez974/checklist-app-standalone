@@ -13,7 +13,7 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { addIcons } from 'ionicons';
-import { chevronUpOutline, chevronDownOutline, caretUpOutline, caretDownOutline,   barChartOutline,barChartSharp,clipboardOutline, clipboardSharp,checkboxOutline, checkboxSharp,checkmarkDoneOutline,checkmarkDoneSharp, bookmarkOutline, bookmarkSharp } from 'ionicons/icons';
+import { chevronUpOutline, chevronDownOutline, caretUpOutline, caretDownOutline,   barChartOutline,barChartSharp,clipboardOutline, clipboardSharp,checkboxOutline, checkboxSharp,checkmarkDoneOutline,checkmarkDoneSharp, bookmarkOutline, bookmarkSharp, playOutline, ellipseOutline, warningOutline } from 'ionicons/icons';
 
 addIcons({
   'chevron-up-outline': chevronUpOutline,
@@ -28,7 +28,10 @@ addIcons({
   'checkmark-done-outline': checkmarkDoneOutline,
   'checkmark-done-sharp': checkmarkDoneSharp,
   'bookmark-outline': bookmarkOutline,
-  'bookmark-sharp': bookmarkSharp
+  'bookmark-sharp': bookmarkSharp,
+  'play-outline' : playOutline,
+  'ellipse-outline' : ellipseOutline,
+  'warning-outline' : warningOutline
 });
 
 

@@ -7,6 +7,7 @@
     </ion-buttons>
     <!-- Botones de ordenamiento -->
     <ion-buttons slot="end">
+
       <ion-button
         fill="clear"
         color="primary"
@@ -42,6 +43,7 @@
           [name]="sortOrders['categoria'] ? 'caret-up-outline' : 'caret-down-outline'"
         ></ion-icon>
       </ion-button>
+
       <ion-button
         fill="clear"
         color="medium"
@@ -52,6 +54,7 @@
           slot="icon-only"
           [name]="sortOrders['situacion'] ? 'caret-up-outline' : 'caret-down-outline'"
         ></ion-icon>
+
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -94,15 +97,24 @@
         </p>
         <p>
           <ion-text color="medium">
-            <b>Estado:</b>
+            <b>Estado: </b>
           </ion-text>
-          {{lista.situacion || 'No se ha iniciado'}}
+          @if( lista.situacion === 'Iniciada' ){
+            <ion-icon name="play-outline" style="font-size: 1.2em; color: blue; vertical-align: middle;"></ion-icon>
+          } @else {
+            @if( lista.situacion === 'No se ha iniciado'){
+              <ion-icon name="warning-outline" style="font-size: 1.2em; color: #f4d03f; vertical-align: middle;"></ion-icon>
+            }@else {
+              <ion-icon name="warning-outline" style="font-size: 1.2em; color: #e04173; vertical-align: middle;"></ion-icon>
+            }
+          }
+          <span>{{' '+lista.situacion}}</span> 
         </p>
       </ion-label>
       <ion-button
         slot="end"
         fill="outline"
-        (click)="enterList(lista.codigo_lista)"
+        (click)="entrarLista(lista)"
       >
         Entrar
       </ion-button>

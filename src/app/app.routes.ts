@@ -19,4 +19,8 @@ export const routes: Routes = [
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard.page').then( m => m.DashboardPage)
   },
+  {
+    path: 'lista',
+    loadComponent: () => import('./pages/lista/lista.page').then( m => m.ListaPage)
+  },
 ];

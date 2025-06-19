@@ -12,6 +12,8 @@ import {
 import { LoginService } from '../../services/login.service';
 import { SessionService } from 'src/app/services/session.service';
 import { Router } from '@angular/router';
+import { getToken } from '../../utils'; // Adjust the path if needed
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -38,40 +40,40 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {}
 
-  email = 'manuelsa@farasi.com.gt';
+  email = environment.sacEmail;
   user = '';
   password = '';
-  token = 'D3$@rr0ll0';
+  token = getToken();
   hashkey = '';
   // const hashkey = 'vqKRpeDWlebbnQ==';
 
-login() {
-  const user = this.user;
-  const password = this.password;
-  const token = this.token; // Use actual token logic if needed
-  const hashkey = this.hashkey; // Use actual hashkey logic if needed
+  login() {
+    const user = this.user;
+    const password = this.password;
+    const token = this.token; // Use actual token logic if needed
+    const hashkey = this.hashkey; // Use actual hashkey logic if needed
 
-  if (!user || !password) {
-    alert('Por favor ingrese usuario y contraseña.');
-    return;
-  }
-
-  this.loginService.login(user, password, token, hashkey).subscribe({
-    next: (response) => {
-      if (response.status) {
-        this.sessionService.setUserData(response.data);
-        // console.log('User session set:', this.sessionService.getUserData());
-        console.log('Sesión abierta con éxito');
-        this.router.navigate(['/listas']);
-      } else {
-        alert('Usuario o contraseña incorrectos.');
-      }
-    },
-    error: (err) => {
-      alert('No se pudo iniciar sesión.');
-      console.error('Login error:', err);
+    if (!user || !password) {
+      alert('Por favor ingrese usuario y contraseña.');
+      return;
     }
-  });
-}
 
+    this.loginService.login(user, password, token, hashkey).subscribe({
+      next: (response) => {
+        if (response.status) {
+          this.sessionService.setUserData(response.data);
+          // console.log('Sesión abierta con éxito');
+          // console.log('User codigo: ' + this.sessionService.getUserData()?.codigo);
+          // console.log(JSON.stringify(this.sessionService.getUserData(), null, 2));
+          this.router.navigate(['/listas']);
+        } else {
+          alert('Usuario o contraseña incorrectos.');
+        }
+      },
+      error: (err) => {
+        alert('No se pudo iniciar sesión.');
+        console.error('Login error:', err);
+      },
+    });
+  }
 }

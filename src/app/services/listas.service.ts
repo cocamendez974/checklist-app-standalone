@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs';
 import { ApiResponse } from '../models/api-response';
+import { getToken } from '../utils';
 
 @Injectable({
   providedIn: 'root',
@@ -19,10 +20,10 @@ getListas(usuario: number): Observable<ApiResponse<any>> {
     const params = new HttpParams()
       .set('request', 'listas')
       .set('usuario', usuario)
-      .set('domain', environment.domain);
+      .set('token', getToken());
 
     return this.http.get(apiUrl, { params }).pipe(
-      map((response: any) => response) // <--- this line is the key
+      map((response: any) => response) 
     );
   }
 }

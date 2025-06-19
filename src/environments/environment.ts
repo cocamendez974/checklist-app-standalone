@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   baseUrl: 'https://bpm.desarrollogt.net/',
-  domain: 'D3$@rr0ll0'
-  
+  token: 'D3$@rr0ll0',  // domain
+  sacEmail: 'omendez@cuantica-ssh.com'
 };
 
 /*
