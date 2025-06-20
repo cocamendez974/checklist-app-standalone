@@ -47,7 +47,7 @@ export class ListasPage {
 
       this.listasService.getListas(usuario).subscribe({
         next: (response) => {
-          // console.dir(response.data);
+          console.dir(response.data);
           this.listas = response.data.map((item: any, index: number) => ({
             numero: index + 1,
             nombre: item.nombre_lista,
@@ -103,6 +103,10 @@ export class ListasPage {
     const fecha = getCurrentDate();
     const hora = getCurrentTime();
     const categoria = item.categoria;
+    const estado = item.situacion;
+    const revision = item.revision;
+
+
 
     this.router.navigate(['/lista'], {
       state: {
@@ -110,32 +114,13 @@ export class ListasPage {
         programacion,
         categoria,
         usuario,
+        estado,
+        revision,
+        fecha,
+        hora
       },
     });
   }
-    // const params = new HttpParams()
-    //   .set('request', 'new_revision')
-    //   .set('lista', lista)
-    //   .set('programacion', programacion)
-    //   .set('usuario', usuario)
-    //   .set('fecha', fecha)
-    //   .set('hora', hora)
-    //   .set('domain', getToken());
 
-    // const url = `${environment.baseUrl}ROOT/API/API_checklist.php`;
-
-    // this.httpClient.get(url, { params }).subscribe({
-    //   next: (response) => {
-    //     // Handle response here
-    //     console.log('Checklist opened:', response);
-    //     // Example: Navigate to the checklist detail page
-    //     // this.router.navigate(['/detalle-checklist', response.data.codigo_revision]);
-    //   },
-    //   error: (error) => {
-    //     alert('No se pudo abrir la lista de chequeo.');
-    //   },
-    // });
-
-    // You’ll build and call the API in the next steps
-  }
-
+  
+}
