@@ -45,9 +45,16 @@ export class LoginPage implements OnInit {
   password = '';
   token = getToken();
   hashkey = '';
+  user_data = '';
   // const hashkey = 'vqKRpeDWlebbnQ==';
 
   login() {
+
+    this.user_data = this.sessionService.getUserData()
+    if(this.user_data){
+      this.router.navigate(['/dashboard']);
+    }
+
     const user = this.user;
     const password = this.password;
     const token = this.token; // Use actual token logic if needed

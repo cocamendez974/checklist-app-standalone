@@ -106,7 +106,11 @@ export class ListasPage {
     const estado = item.situacion;
     const revision = item.revision;
 
-
+    if (estado === 'Iniciada') {
+      this.abrirRevisionExistente(item);
+    } else {
+      this.crearNuevaRevision(item);
+    }
 
     this.router.navigate(['/lista'], {
       state: {
@@ -116,11 +120,15 @@ export class ListasPage {
         usuario,
         estado,
         revision,
-        fecha,
-        hora
       },
     });
   }
 
-  
+  abrirRevisionExistente(item: any) {
+    console.log('existente');
+  }
+
+  crearNuevaRevision(item: any) {
+    console.log('nueva');
+  }
 }

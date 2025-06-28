@@ -17,8 +17,6 @@ export class ListaPage implements OnInit {
   programacion: any;
   categoria: any;
   usuario: any;
-  estado: any;
-  revision: any;
   
   constructor(private router: Router) { 
    const navigation = this.router.getCurrentNavigation();
@@ -27,8 +25,6 @@ export class ListaPage implements OnInit {
       programacion?: any;
       categoria?: any;
       usuario?: any;
-      estado?: any;
-      revision?: any;
     };
 
     // Asigna los datos recibidos del estado del router
@@ -36,8 +32,6 @@ export class ListaPage implements OnInit {
     this.programacion = state?.programacion;
     this.categoria = state?.categoria;
     this.usuario = state?.usuario;
-    this.estado = state?.estado;
-    this.revision = state?.revision;
   }
 
   ngOnInit() {
