@@ -23,7 +23,7 @@ export class ListasPage {
     numero: true,
     nombre: true,
     categoria: true,
-    estado: true,
+    situacion: true,
   };
 
   constructor(
