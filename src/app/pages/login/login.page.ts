@@ -38,7 +38,11 @@ export class LoginPage implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.sessionService.isLoggedIn()) {
+      this.router.navigate(['/listas']);
+    }
+  }
 
   email = environment.sacEmail;
   user = '';
