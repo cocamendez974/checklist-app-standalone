@@ -43,7 +43,7 @@ export class CategoriasService {
   }
 
   getCategorias( usuario: number ): Observable <any> {
-    const url = 'https://bpm.desarrollogt.net/ROOT7API/API_util.php';
+    const url = 'https://bpm.desarrollogt.net/ROOT/API/API_util.php';
     const params = { request: 'categorias', usuario: usuario.toString() } ;
     return this.httpClient.get<any>( url, {params });
   }
