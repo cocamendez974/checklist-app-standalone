@@ -23,6 +23,7 @@ export class DashboardPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('dashboard...');
   }
 
 }
