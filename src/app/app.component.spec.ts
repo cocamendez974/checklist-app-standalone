@@ -22,9 +22,11 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-label');
-    expect(menuItems.length).toEqual(12);
-    expect(menuItems[0].textContent).toContain('Inbox');
-    expect(menuItems[1].textContent).toContain('Outbox');
+    expect(menuItems.length).toEqual(4);
+    expect(menuItems[0].textContent).toContain('Dashboard');
+    expect(menuItems[1].textContent).toContain('Listas para Registrar');
+    expect(menuItems[2].textContent).toContain('Checklist');
+    expect(menuItems[3].textContent).toContain('Resultados');
   });
 
   it('should have urls', () => {
@@ -32,12 +34,18 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const app = fixture.nativeElement;
     const menuItems = app.querySelectorAll('ion-item');
-    expect(menuItems.length).toEqual(12);
+    expect(menuItems.length).toEqual(4);
     expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual(
-      '/folder/inbox'
+      '/dashboard'
     );
     expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual(
-      '/folder/outbox'
+      '/listas'
+    );
+    expect(menuItems[2].getAttribute('ng-reflect-router-link')).toEqual(
+      '/lista'
+    );
+    expect(menuItems[3].getAttribute('ng-reflect-router-link')).toEqual(
+      '/resultados'
     );
   });
 });
