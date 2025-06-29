@@ -1,13 +1,27 @@
 import { Injectable } from '@angular/core';
 
+const STORAGE_KEY = 'sessionUserData';
+
 @Injectable({
   providedIn: 'root',
 })
 export class SessionService {
   private userData: any = null;
 
+  constructor() {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        this.userData = JSON.parse(stored);
+      } catch {
+        this.userData = null;
+      }
+    }
+  }
+
   setUserData(data: any) {
     this.userData = data;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   }
 
   getUserData() {
@@ -27,6 +41,7 @@ export class SessionService {
 
   clearUserData() {
     this.userData = null;
+    localStorage.removeItem(STORAGE_KEY);
   }
 
   isLoggedIn(): boolean {
