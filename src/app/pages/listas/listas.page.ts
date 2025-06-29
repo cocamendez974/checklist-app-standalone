@@ -1,12 +1,11 @@
 import { ListasService } from '../../services/listas.service';
+import { ListaService } from '../../services/lista.service';
 import { SessionService } from '../../services/session.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { getCurrentDate, getCurrentTime, getToken } from '../../utils';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { getCurrentDate, getCurrentTime } from '../../utils';
 
 @Component({
   selector: 'app-listas',
@@ -28,9 +27,9 @@ export class ListasPage {
 
   constructor(
     private listasService: ListasService,
+    private listaService: ListaService,
     private sessionService: SessionService,
-    private router: Router,
-    private httpClient: HttpClient
+    private router: Router
   ) {}
 
   ionViewWillEnter() {
@@ -98,37 +97,39 @@ export class ListasPage {
   entrarLista(item: any) {
     const lista = item.codigo_lista;
     const programacion = item.codigo_programacion;
-    const userData = this.sessionService.getUserData();
-    const usuario = userData.codigo;
     const fecha = getCurrentDate();
     const hora = getCurrentTime();
     const categoria = item.categoria;
-    const estado = item.situacion;
-    const revision = item.revision;
+    const usuario = this.sessionService.getUserData().codigo;
 
-    if (estado === 'Iniciada') {
-      this.abrirRevisionExistente(item);
-    } else {
-      this.crearNuevaRevision(item);
-    }
+    this.listaService
+      .newRevision(lista, programacion, fecha, hora)
+      .subscribe({
+        next: (response) => {
+          if (response.status) {
+            item.situacion = 'Iniciada';
+            if (response.data?.revision) {
+              item.revision = response.data.revision;
+            }
+          }
 
-    this.router.navigate(['/lista'], {
-      state: {
-        lista,
-        programacion,
-        categoria,
-        usuario,
-        estado,
-        revision,
-      },
-    });
-  }
+          this.filterListas();
 
-  abrirRevisionExistente(item: any) {
-    console.log('existente');
-  }
-
-  crearNuevaRevision(item: any) {
-    console.log('nueva');
+          this.router.navigate(['/lista'], {
+            state: {
+              lista,
+              programacion,
+              categoria,
+              usuario,
+              estado: item.situacion,
+              revision: item.revision,
+            },
+          });
+        },
+        error: (err) => {
+          alert('No se pudo crear la revisión.');
+          console.error('Error al crear revisión:', err);
+        },
+      });
   }
 }
